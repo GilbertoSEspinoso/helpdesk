@@ -3,8 +3,8 @@ package com.gbproductions.helpdesk.domain.enums;
 public enum Prioridade {
     BAIXA(0, "BAIXA"), MEDIA(1, "MEDIA"), ALTA(2, "ALTA");
 
-    private Integer codigo;
-    private String descricao;
+    private final Integer codigo;
+    private final String descricao;
 
     Prioridade(Integer codigo, String descricao) {
         this.codigo = codigo;
