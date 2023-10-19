@@ -1,7 +1,6 @@
 package com.gbproductions.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gbproductions.helpdesk.domain.enums.Perfil;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
