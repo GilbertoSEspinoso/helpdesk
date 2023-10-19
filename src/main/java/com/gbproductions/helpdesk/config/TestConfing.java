@@ -1,6 +1,6 @@
 package com.gbproductions.helpdesk.config;
 
-import com.gbproductions.helpdesk.service.DBservice;
+import com.gbproductions.helpdesk.services.DBservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

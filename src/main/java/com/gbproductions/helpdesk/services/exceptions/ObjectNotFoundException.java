@@ -1,4 +1,4 @@
-package com.gbproductions.helpdesk.service.exceptions;
+package com.gbproductions.helpdesk.services.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException{
 

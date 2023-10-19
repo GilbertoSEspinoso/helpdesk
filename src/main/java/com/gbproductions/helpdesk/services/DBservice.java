@@ -1,4 +1,4 @@
-package com.gbproductions.helpdesk.service;
+package com.gbproductions.helpdesk.services;
 
 import com.gbproductions.helpdesk.domain.Chamado;
 import com.gbproductions.helpdesk.domain.Cliente;

@@ -2,7 +2,7 @@ package com.gbproductions.helpdesk.resources;
 
 import com.gbproductions.helpdesk.domain.Tecnico;
 import com.gbproductions.helpdesk.dtos.TecnicoDTO;
-import com.gbproductions.helpdesk.service.TecnicoService;
+import com.gbproductions.helpdesk.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class TecnicoResource {
     @Autowired
     private TecnicoService service;
 
-    //------RETORNO DE UM TECNICO DO BANCO
+    //---> ENDPOINT PARA RETORNAR UM TECNICO - GET
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 
@@ -27,7 +27,7 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 
-    //------RETORNO DE TODOS OS TECNICOS DO BANCO
+    //---> ENDPOINT PARA RETORNAR TODOS OS TECNICOS - GET
     @GetMapping
     public ResponseEntity<List<TecnicoDTO>> findAll(){
         List<Tecnico> list = service.findAll();
@@ -36,7 +36,7 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    //------ENDPOINT PARA CRIAR NOVO TECNICO
+    //---> ENDPOINT PARA CRIAR NOVO TECNICO - POST
     @PostMapping
     public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO objDTO){
         Tecnico newObj = service.create(objDTO);
