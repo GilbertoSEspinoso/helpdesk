@@ -19,14 +19,14 @@ public class ClienteResource {
     @Autowired
     private ClienteService service;
 
-    //---> ENDPOINT PARA RETORNAR UM Cliente - GET
+    //---> ENDPOINT PARA RETORNAR UM CLIENTE - GET
     @GetMapping(value = "/{id}")
     public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
         Cliente obj = service.findById(id);
         return ResponseEntity.ok().body(new ClienteDTO(obj));
     }
 
-    //---> ENDPOINT PARA RETORNAR TODOS OS ClienteS - GET
+        //---> ENDPOINT PARA RETORNAR TODOS OS CLIENTES - GET
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> findAll() {
         List<Cliente> list = service.findAll();
@@ -34,7 +34,7 @@ public class ClienteResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    //---> ENDPOINT PARA CRIAR NOVO Cliente - POST
+    //---> ENDPOINT PARA CRIAR NOVO CLIENTE - POST
     @PostMapping
     public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO objDTO) {
         Cliente newObj = service.create(objDTO);
@@ -43,14 +43,14 @@ public class ClienteResource {
         return ResponseEntity.created(uri).build();
     }
 
-    //---> ENDPOINT PARA ATUALIZAR UM Cliente - PUT
+    //---> ENDPOINT PARA ATUALIZAR UM CLIENTE - PUT
     @PutMapping(value = "/{id}")
     public ResponseEntity<ClienteDTO> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO objDTO) {
         Cliente obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new ClienteDTO(obj));
     }
 
-    //---> ENDPOINT PARA DELETAR UM Cliente - DELETE
+    //---> ENDPOINT PARA DELETAR UM CLIENTE - DELETE
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<ClienteDTO> delete(@PathVariable Integer id) {
         service.delete(id);

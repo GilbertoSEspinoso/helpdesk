@@ -22,18 +22,18 @@ public class ClienteService {
     private PessoaRepository pessoaRepository;
 
 
-    //---> ENDPOINT PARA RETORNAR UM Cliente - GET
+    //---> ENDPOINT PARA RETORNAR UM CLIENTE - GET
     public Cliente findById(Integer id) {
         Optional<Cliente> obj = repository.findById(id);
         return obj.orElseThrow((() -> new ObjectNotFoundException("Id `" + id + "` não encontrado")));
     }
 
-    //---> ENDPOINT PARA RETORNAR TODOS OS ClienteS - GET
+    //---> ENDPOINT PARA RETORNAR TODOS OS CLIENTES - GET
     public List<Cliente> findAll() {
         return repository.findAll();
     }
 
-    //---> ENDPOINT PARA CRIAR NOVO Cliente - POST
+    //---> ENDPOINT PARA CRIAR NOVO CLIENTE - POST
     public Cliente create(ClienteDTO objDTO) {
         objDTO.setId(null);
         validaPorCpfEEmail(objDTO);
@@ -41,7 +41,7 @@ public class ClienteService {
         return repository.save(newObj);
     }
 
-    //---> ENDPOINT PARA ATUALIZAR UM Cliente - PUT
+    //---> ENDPOINT PARA ATUALIZAR UM CLIENTE - PUT
     public Cliente update(Integer id, ClienteDTO objDTO) {
         objDTO.setId(id);
         findById(id);
@@ -50,7 +50,7 @@ public class ClienteService {
         return repository.save(obj);
     }
 
-    //---> ENDPOINT PARA DELETAR UM Cliente - DELETE
+    //---> ENDPOINT PARA DELETAR UM CLIENTE - DELETE
     public void delete(Integer id) {
         Cliente obj = findById(id);
         if (obj.getChamados().size() > 0) {
