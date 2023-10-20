@@ -29,10 +29,10 @@ public class ChamadoResource {
 
     //---> ENDPOINT PARA RETORNAR TODOS CHAMADOS - GET - all
     @GetMapping
-    private ResponseEntity<List<ChamadoDTO>> findAll(){
+    private ResponseEntity<List<ChamadoDTO>> findAll() {
         List<Chamado> list = service.findAll();
         List<ChamadoDTO> listDTO = list.stream().map(ChamadoDTO::new).collect(Collectors.toList());
-        return  ResponseEntity.ok().body(listDTO);
+        return ResponseEntity.ok().body(listDTO);
     }
 
     //---> ENDPOINT PARA CRIAR NOVO CHAMADO - POST
@@ -44,5 +44,11 @@ public class ChamadoResource {
         return ResponseEntity.created(uri).build();
     }
 
+    //---> ENDPOINT PARA ATUALIZAR UM CHAMADO - PUT
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ChamadoDTO objDTO) {
+        Chamado obj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new ChamadoDTO(obj));
+    }
 
 }

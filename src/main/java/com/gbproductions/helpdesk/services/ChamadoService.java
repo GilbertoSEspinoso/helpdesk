@@ -6,13 +6,13 @@ import com.gbproductions.helpdesk.domain.Tecnico;
 import com.gbproductions.helpdesk.domain.enums.Prioridade;
 import com.gbproductions.helpdesk.domain.enums.Status;
 import com.gbproductions.helpdesk.dtos.ChamadoDTO;
-import com.gbproductions.helpdesk.dtos.TecnicoDTO;
 import com.gbproductions.helpdesk.repositories.ChamadoRepository;
 import com.gbproductions.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +42,14 @@ public class ChamadoService {
         return repository.save(novoChamado(objDTO));
     }
 
+    //---> ENDPOINT PARA ATUALIZAR UM CLIENTE - PUT
+    public Chamado update(Integer id, ChamadoDTO objDTO) {
+        objDTO.setId(id);
+        Chamado oldObj = findById(id);
+        oldObj = novoChamado(objDTO);
+        return repository.save(oldObj);
+    }
+
 
     //... METODO PARA IDENTIFICAR SE TECNICO E CLIENTE EXISTEM
     //... ESSE METODO SERVE TANTO PARA CRIAR COMO PARA ATUALIZAR
@@ -54,6 +62,12 @@ public class ChamadoService {
         if (obj.getId() != null) {
             chamado.setId(obj.getId());
         }
+
+        if (obj.getStatus().equals(2)) {
+            chamado.setDataFechamento(LocalDate.now());
+        }
+        // VALIDACAO DE STATUS (SE ENCERRADO) POR DATA DE ENCERRAMENTO ↗
+
         chamado.setTecnico(tecnico);
         chamado.setCliente(cliente);
         chamado.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));
