@@ -8,6 +8,7 @@ import com.gbproductions.helpdesk.repositories.TecnicoRepository;
 import com.gbproductions.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,6 +49,15 @@ public class TecnicoService {
         validaPorCpfEEmail(objDTO);
         Tecnico obj = new Tecnico(objDTO);
         return repository.save(obj);
+    }
+
+    //---> ENDPOINT PARA DELETAR UM TECNICO - DELETE
+    public void delete(Integer id) {
+        Tecnico obj = findById(id);
+        if (obj.getChamados().size() > 0){
+            throw new DataIntegrityViolationException("AÇÃO NEGADA! - Técnico possui ordem(s) de serviço(s) ATIVAS.");
+        }
+        repository.deleteById(id);
     }
 
 
