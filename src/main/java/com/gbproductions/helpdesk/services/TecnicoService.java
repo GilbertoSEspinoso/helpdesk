@@ -41,16 +41,23 @@ public class TecnicoService {
         return  repository.save(newObj);
     }
 
+    //---> ENDPOINT PARA ATUALIZAR UM TECNICO - PUT
+    public Tecnico update(Integer id, TecnicoDTO objDTO) {
+        objDTO.setId(id);
+        findById(id);
+        validaPorCpfEEmail(objDTO);
+        Tecnico obj = new Tecnico(objDTO);
+        return repository.save(obj);
+    }
 
-    //...METODO USADO POR >> `CREATE` PARA VALIDAR CPF e EMAIL
+
+    //...METODO USADO POR >> `CREATE` e `UPDATE` PARA VALIDAR CPF e EMAIL
     private void validaPorCpfEEmail(TecnicoDTO objDTO) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
-
         //VALIDACAO PARA CPF
         if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
             throw new DataIntegrityViolationException("Este cpf encontra-se cadastrado no sistema.");
         }
-
         //VALIDACAO PARA EMAIL
         obj = pessoaRepository.findByEmail(objDTO.getEmail());
         if(obj.isPresent() && obj.get().getId() != objDTO.getId()){

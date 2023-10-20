@@ -23,14 +23,14 @@ public class TecnicoResource {
     //---> ENDPOINT PARA RETORNAR UM TECNICO - GET
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
-
         Tecnico obj = service.findById(id);
+
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 
     //---> ENDPOINT PARA RETORNAR TODOS OS TECNICOS - GET
     @GetMapping
-    public ResponseEntity<List<TecnicoDTO>> findAll(){
+    public ResponseEntity<List<TecnicoDTO>> findAll() {
         List<Tecnico> list = service.findAll();
         List<TecnicoDTO> listDTO = list.stream().map(TecnicoDTO::new).collect(Collectors.toList());
 
@@ -39,12 +39,18 @@ public class TecnicoResource {
 
     //---> ENDPOINT PARA CRIAR NOVO TECNICO - POST
     @PostMapping
-    public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO objDTO){
+    public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO objDTO) {
         Tecnico newObj = service.create(objDTO);
-
         //caminho da url/uri do novo tecnico criado
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    //---> ENDPOINT PARA ATUALIZAR UM TECNICO - PUT
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO objDTO) {
+        Tecnico obj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 }
