@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResource {
-
     @Autowired
     private TecnicoService service;
 
@@ -24,7 +23,6 @@ public class TecnicoResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
         Tecnico obj = service.findById(id);
-
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 
@@ -33,7 +31,6 @@ public class TecnicoResource {
     public ResponseEntity<List<TecnicoDTO>> findAll() {
         List<Tecnico> list = service.findAll();
         List<TecnicoDTO> listDTO = list.stream().map(TecnicoDTO::new).collect(Collectors.toList());
-
         return ResponseEntity.ok().body(listDTO);
     }
 
@@ -43,7 +40,6 @@ public class TecnicoResource {
         Tecnico newObj = service.create(objDTO);
         //caminho da url/uri do novo tecnico criado
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-
         return ResponseEntity.created(uri).build();
     }
 
