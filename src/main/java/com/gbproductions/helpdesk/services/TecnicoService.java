@@ -8,7 +8,7 @@ import com.gbproductions.helpdesk.repositories.TecnicoRepository;
 import com.gbproductions.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,25 +21,28 @@ public class TecnicoService {
     private TecnicoRepository repository;
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
 
     //---> ENDPOINT PARA RETORNAR UM TECNICO - GET
-    public Tecnico findById(Integer id){
+    public Tecnico findById(Integer id) {
         Optional<Tecnico> obj = repository.findById(id);
         return obj.orElseThrow((() -> new ObjectNotFoundException("Id `" + id + "` não encontrado")));
     }
 
     //---> ENDPOINT PARA RETORNAR TODOS OS TECNICOS - GET
-    public List<Tecnico> findAll(){
+    public List<Tecnico> findAll() {
         return repository.findAll();
     }
 
     //---> ENDPOINT PARA CRIAR NOVO TECNICO - POST
     public Tecnico create(TecnicoDTO objDTO) {
         objDTO.setId(null);
+        objDTO.setSenha(encoder.encode(objDTO.getSenha()));
         validaPorCpfEEmail(objDTO);
         Tecnico newObj = new Tecnico(objDTO);
-        return  repository.save(newObj);
+        return repository.save(newObj);
     }
 
     //---> ENDPOINT PARA ATUALIZAR UM TECNICO - PUT
@@ -54,7 +57,7 @@ public class TecnicoService {
     //---> ENDPOINT PARA DELETAR UM TECNICO - DELETE
     public void delete(Integer id) {
         Tecnico obj = findById(id);
-        if (obj.getChamados().size() > 0){
+        if (obj.getChamados().size() > 0) {
             throw new DataIntegrityViolationException("AÇÃO NEGADA! - Técnico possui ordem(s) de serviço(s) ATIVAS.");
         }
         repository.deleteById(id);
@@ -65,12 +68,12 @@ public class TecnicoService {
     private void validaPorCpfEEmail(TecnicoDTO objDTO) {
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
         //VALIDACAO PARA CPF
-        if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
             throw new DataIntegrityViolationException("Este cpf encontra-se cadastrado no sistema.");
         }
         //VALIDACAO PARA EMAIL
         obj = pessoaRepository.findByEmail(objDTO.getEmail());
-        if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
+        if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
             throw new DataIntegrityViolationException("Este email encontra-se cadastrado no sistema.");
         }
     }
