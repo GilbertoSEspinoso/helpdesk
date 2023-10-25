@@ -15,12 +15,13 @@ public class UserSS implements UserDetails {
     private Integer id;
     private String email;
     private String senha;
+    private Collection<? extends GrantedAuthority> authorities;
 
     public UserSS(Integer id, String email, String senha, Set<Perfil> perfils) {
         this.id = id;
         this.email = email;
         this.senha = senha;
-        Collection<? extends GrantedAuthority> authorities = perfils.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toSet());
+        this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toSet());
     }
 
     public Integer getId() {
@@ -29,7 +30,7 @@ public class UserSS implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
