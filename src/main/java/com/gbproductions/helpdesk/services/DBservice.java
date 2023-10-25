@@ -45,8 +45,7 @@ public class DBservice {
         Chamado c3 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Temperatura Elevada - Corredor vermelho", "Temperatura elevada no segundo andar da enfermaria", tec3, clie2);
         Chamado c4 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Mensal-PF-SPLIT101", "Manutenção mensal/ sala da PF área restrita", tec4, clie2);
 
-        pessoaRepository.saveAll(List.of(tec1,tec2,tec3,tec4,tec5,tec6));
-        pessoaRepository.saveAll(List.of(clie1,clie2));
+        pessoaRepository.saveAll(List.of(tec1,tec2,tec3,tec4,tec5,tec6,clie1,clie2));
         chamadoRepository.saveAll(List.of(c1,c2,c3,c4));
     }
 }
