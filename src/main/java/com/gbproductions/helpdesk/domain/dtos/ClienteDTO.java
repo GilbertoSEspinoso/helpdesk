@@ -1,16 +1,18 @@
-package com.gbproductions.helpdesk.dtos;
+package com.gbproductions.helpdesk.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gbproductions.helpdesk.domain.Tecnico;
+import com.gbproductions.helpdesk.domain.Cliente;
 import com.gbproductions.helpdesk.domain.enums.Perfil;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TecnicoDTO {
+public class ClienteDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     protected Integer id;
     @NotNull(message = "Campo 'nome' requerido.")
@@ -27,21 +29,22 @@ public class TecnicoDTO {
     protected LocalDate dataCriacao = LocalDate.now();
 
 
-    public TecnicoDTO() {
+    public ClienteDTO() {
         super();
-        addPerfil(Perfil.TECNICO);
+        addPerfil(Perfil.CLIENTE);
     }
 
-    public TecnicoDTO(Tecnico obj) {
+    public ClienteDTO(Cliente obj) {
+        super();
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
-        this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
+        this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
 
-        addPerfil(Perfil.TECNICO);
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -85,7 +88,7 @@ public class TecnicoDTO {
     }
 
     public Set<Perfil> getPerfis() {
-        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
     public void addPerfil(Perfil perfil) {

@@ -1,7 +1,7 @@
 package com.gbproductions.helpdesk.resources;
 
 import com.gbproductions.helpdesk.domain.Chamado;
-import com.gbproductions.helpdesk.dtos.ChamadoDTO;
+import com.gbproductions.helpdesk.domain.dtos.ChamadoDTO;
 import com.gbproductions.helpdesk.services.ChamadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

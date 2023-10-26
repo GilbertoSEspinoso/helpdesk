@@ -1,4 +1,4 @@
-package com.gbproductions.helpdesk.dtos;
+package com.gbproductions.helpdesk.domain.dtos;
 
 public class CredenciaisDTO {
     private String senha;

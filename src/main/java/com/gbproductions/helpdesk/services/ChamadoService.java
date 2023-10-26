@@ -5,7 +5,7 @@ import com.gbproductions.helpdesk.domain.Cliente;
 import com.gbproductions.helpdesk.domain.Tecnico;
 import com.gbproductions.helpdesk.domain.enums.Prioridade;
 import com.gbproductions.helpdesk.domain.enums.Status;
-import com.gbproductions.helpdesk.dtos.ChamadoDTO;
+import com.gbproductions.helpdesk.domain.dtos.ChamadoDTO;
 import com.gbproductions.helpdesk.repositories.ChamadoRepository;
 import com.gbproductions.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

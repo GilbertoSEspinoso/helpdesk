@@ -1,4 +1,4 @@
-package com.gbproductions.helpdesk.dtos;
+package com.gbproductions.helpdesk.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gbproductions.helpdesk.domain.Chamado;
@@ -31,6 +31,7 @@ public class ChamadoDTO implements Serializable {
     private String nomeCliente;
 
     public ChamadoDTO() {
+        super();
     }
 
     public ChamadoDTO(Chamado obj) {

@@ -1,7 +1,7 @@
 package com.gbproductions.helpdesk.resources;
 
 import com.gbproductions.helpdesk.domain.Cliente;
-import com.gbproductions.helpdesk.dtos.ClienteDTO;
+import com.gbproductions.helpdesk.domain.dtos.ClienteDTO;
 import com.gbproductions.helpdesk.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

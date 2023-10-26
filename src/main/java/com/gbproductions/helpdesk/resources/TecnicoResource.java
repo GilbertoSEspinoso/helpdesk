@@ -1,7 +1,7 @@
 package com.gbproductions.helpdesk.resources;
 
 import com.gbproductions.helpdesk.domain.Tecnico;
-import com.gbproductions.helpdesk.dtos.TecnicoDTO;
+import com.gbproductions.helpdesk.domain.dtos.TecnicoDTO;
 import com.gbproductions.helpdesk.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

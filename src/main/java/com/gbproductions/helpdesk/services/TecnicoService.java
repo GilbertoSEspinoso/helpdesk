@@ -2,7 +2,7 @@ package com.gbproductions.helpdesk.services;
 
 import com.gbproductions.helpdesk.domain.Pessoa;
 import com.gbproductions.helpdesk.domain.Tecnico;
-import com.gbproductions.helpdesk.dtos.TecnicoDTO;
+import com.gbproductions.helpdesk.domain.dtos.TecnicoDTO;
 import com.gbproductions.helpdesk.repositories.PessoaRepository;
 import com.gbproductions.helpdesk.repositories.TecnicoRepository;
 import com.gbproductions.helpdesk.services.exceptions.ObjectNotFoundException;

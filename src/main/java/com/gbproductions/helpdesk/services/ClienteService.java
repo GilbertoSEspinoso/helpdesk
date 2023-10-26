@@ -2,7 +2,7 @@ package com.gbproductions.helpdesk.services;
 
 import com.gbproductions.helpdesk.domain.Cliente;
 import com.gbproductions.helpdesk.domain.Pessoa;
-import com.gbproductions.helpdesk.dtos.ClienteDTO;
+import com.gbproductions.helpdesk.domain.dtos.ClienteDTO;
 import com.gbproductions.helpdesk.repositories.ClienteRepository;
 import com.gbproductions.helpdesk.repositories.PessoaRepository;
 import com.gbproductions.helpdesk.services.exceptions.ObjectNotFoundException;

@@ -1,25 +1,27 @@
-package com.gbproductions.helpdesk.dtos;
+package com.gbproductions.helpdesk.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gbproductions.helpdesk.domain.Cliente;
+import com.gbproductions.helpdesk.domain.Tecnico;
 import com.gbproductions.helpdesk.domain.enums.Perfil;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ClienteDTO {
+public class TecnicoDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     protected Integer id;
-    @NotNull(message = "Campo 'nome' requerido.")
+    @NotNull(message = "O campo NOME é requerido")
     protected String nome;
-    @NotNull(message = "Campo 'cpf' requerido.")
+    @NotNull(message = "O campo CPF é requerido")
     protected String cpf;
-    @NotNull(message = "Campo 'email' requerido.")
+    @NotNull(message = "O campo EMAIL é requerido")
     protected String email;
-    @NotNull(message = "Campo 'senha' requerido.")
+    @NotNull(message = "O campo SENHA é requerido")
     protected String senha;
     protected Set<Integer> perfis = new HashSet<>();
 
@@ -27,18 +29,18 @@ public class ClienteDTO {
     protected LocalDate dataCriacao = LocalDate.now();
 
 
-    public ClienteDTO() {
+    public TecnicoDTO() {
         super();
-        addPerfil(Perfil.CLIENTE);
+        addPerfil(Perfil.TECNICO);
     }
 
-    public ClienteDTO(Cliente obj) {
+    public TecnicoDTO(Tecnico obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
-        this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
+        this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
 
         addPerfil(Perfil.CLIENTE);
@@ -85,7 +87,7 @@ public class ClienteDTO {
     }
 
     public Set<Perfil> getPerfis() {
-        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
     public void addPerfil(Perfil perfil) {
