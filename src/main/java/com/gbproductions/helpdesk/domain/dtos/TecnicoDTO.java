@@ -3,6 +3,7 @@ package com.gbproductions.helpdesk.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gbproductions.helpdesk.domain.Tecnico;
 import com.gbproductions.helpdesk.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class TecnicoDTO implements Serializable {
     @NotNull(message = "O campo NOME é requerido")
     protected String nome;
     @NotNull(message = "O campo CPF é requerido")
+    @CPF
     protected String cpf;
     @NotNull(message = "O campo EMAIL é requerido")
     protected String email;
@@ -31,10 +33,11 @@ public class TecnicoDTO implements Serializable {
 
     public TecnicoDTO() {
         super();
-        addPerfil(Perfil.TECNICO);
+        addPerfil(Perfil.CLIENTE);
     }
 
     public TecnicoDTO(Tecnico obj) {
+        super();
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
