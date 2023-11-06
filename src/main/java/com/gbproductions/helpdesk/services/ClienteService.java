@@ -48,10 +48,15 @@ public class ClienteService {
     //---> ENDPOINT PARA ATUALIZAR UM CLIENTE - PUT
     public Cliente update(Integer id, ClienteDTO objDTO) {
         objDTO.setId(id);
-        findById(id);
+        Cliente oldObj = findById(id);
+
+        if (!objDTO.getSenha().equals(oldObj.getSenha())) {
+            objDTO.setSenha(encoder.encode(objDTO.getSenha()));
+        }
+
         validaPorCpfEEmail(objDTO);
-        Cliente obj = new Cliente(objDTO);
-        return repository.save(obj);
+        oldObj = new Cliente(objDTO);
+        return repository.save(oldObj);
     }
 
     //---> ENDPOINT PARA DELETAR UM CLIENTE - DELETE
