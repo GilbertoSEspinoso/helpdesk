@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,12 +47,17 @@ public class TecnicoService {
     }
 
     //---> ENDPOINT PARA ATUALIZAR UM TECNICO - PUT
-    public Tecnico update(Integer id, TecnicoDTO objDTO) {
+    public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
         objDTO.setId(id);
-        findById(id);
+        Tecnico oldObj = findById(id);
+
+        if (!objDTO.getSenha().equals(oldObj.getSenha())) {
+            objDTO.setSenha(encoder.encode(objDTO.getSenha()));
+        }
+
         validaPorCpfEEmail(objDTO);
-        Tecnico obj = new Tecnico(objDTO);
-        return repository.save(obj);
+        oldObj = new Tecnico(objDTO);
+        return repository.save(oldObj);
     }
 
     //---> ENDPOINT PARA DELETAR UM TECNICO - DELETE
